@@ -1,0 +1,27 @@
+{
+  "name": "position",
+  "version": "0.1.0",
+  "description": "DOM element position utilities",
+  "main": "src/index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "bigfile": "*",
+    "mocha": "*",
+    "chai": "*",
+    "laissez-faire": "*"
+  },
+  "scripts" : {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jkroso/position.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jkroso/position/issues"
+  },
+  "keywords": ["DOM","position","css","offset"],
+  "author": "Jakeb Rosoman",
+  "license": "MIT"
+}
