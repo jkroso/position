@@ -1,3 +1,33 @@
+# position
+
+DOM element position utilities
+
+## API
+
+```javascript
+var position = require('position')
+```
+  - [position()](#position)
+  - [exports.relative](#exportsrelative)
+  - [exports.offsetParent](#exportsoffsetparent)
+
+## position()
+
+  Get the location of the element relative to the documentElement
+
+## exports.relative
+
+  Get the position of one element relative to another
+  
+```js
+offset(child)
+offset(child, parent)
+```
+
+## exports.offsetParent
+
+  Get the element that serves as the base for this ones positioning.
+  That means either the nearest positioned parent or the documentElement
 
 ## Contributing
 Please do!

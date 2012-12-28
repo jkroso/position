@@ -1,13 +1,13 @@
 var style = require('computed-style')
 
+exports = module.exports = position
+
 /**
  * Get the location of the element relative to the documentElement
  *
  * @param {Element} element
  * @return {Object} {top, right, bottom, left} in pixels
  */
-
-exports = module.exports = position
 function position (element) {
 	var box = element.getBoundingClientRect()
 	// Has to be copied since ClientRects is immutable and thats unusual
@@ -23,14 +23,16 @@ function position (element) {
 
 /**
  * Get the position of one element relative to another
- * 
+ *
+ *   offset(child)
+ *   offset(child, parent)
+ *   
  * @param {Element} child the subject element
  * @param {Element} [parent] 
  *        offset will be calculated relative to this element. This parameter is 
  *        optional and will be defaulted to the offsetparent of the `child` element
  * @return {Object} {x, y} in pixels
  */
-
 exports.relative = offset 
 function offset (child, parent) {
 	// default to comparing with the offsetparent
@@ -63,7 +65,6 @@ function offset (child, parent) {
  * @param {Element} element
  * @return {Element} if a positioned parent exists
  */
-
 exports.offsetParent = offsetParent
 function offsetParent (element) {
 	var parent = element.offsetParent
