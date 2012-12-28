@@ -33,7 +33,8 @@ function position (element) {
  *        optional and will be defaulted to the offsetparent of the `child` element
  * @return {Object} {x, y} in pixels
  */
-exports.relative = offset 
+exports.relative = 
+exports.offset = offset 
 function offset (child, parent) {
 	// default to comparing with the offsetparent
 	parent || (parent = offsetParent(child))
@@ -57,6 +58,15 @@ function offset (child, parent) {
 		y:  offset.top  - parentOffset.top
 	}
 }
+// Alternative way of calculating offset perhaps its cheaper
+// function offset (el) {
+// 	var x = el.offsetLeft, y = el.offsetTop
+// 	while (el = el.offsetParent) {
+// 		x += el.offsetLeft + el.clientLeft
+// 		y += el.offsetTop + el.clientTop
+// 	}
+// 	return {left: x, top: y}
+// }
 
 /**
  * Get the element that serves as the base for this ones positioning.
