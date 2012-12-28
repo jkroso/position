@@ -3,19 +3,21 @@ var style = require('computed-style')
 exports = module.exports = position
 
 /**
- * Get the location of the element relative to the documentElement
+ * Get the location of the element relative to the top left of the documentElement
  *
  * @param {Element} element
  * @return {Object} {top, right, bottom, left} in pixels
  */
 function position (element) {
 	var box = element.getBoundingClientRect()
+	  , scrollTop = window.scrollY
+	  , scrollLeft = window.scrollX
 	// Has to be copied since ClientRects is immutable and thats unusual
 	return {
-		top: box.top,
-		right: box.right,
-		left: box.left,
-		bottom: box.bottom,
+		top: box.top + scrollTop,
+		right: box.right + scrollLeft,
+		left: box.left + scrollLeft,
+		bottom: box.bottom + scrollTop,
 		width: box.width,
 		height: box.height
 	}
@@ -38,6 +40,13 @@ exports.offset = offset
 function offset (child, parent) {
 	// default to comparing with the offsetparent
 	parent || (parent = offsetParent(child))
+	if (!parent) {
+		parent = position(child)
+		return {
+			x: parent.left,
+			y: parent.top
+		}
+	}
 
 	var offset = position(child)
 	  , parentOffset = position(parent)
@@ -48,9 +57,8 @@ function offset (child, parent) {
 	offset.left -= parseFloat(css.marginLeft) || 0
 
 	// Allow for the offsetparent's border
-	css = style(parent)
-	offset.top  -= parseFloat(css.borderTopWidth) || 0
-	offset.left -= parseFloat(css.borderLeftWidth)|| 0
+	offset.top  -= parent.clientTop
+	offset.left -= parent.clientLeft
 
 	// Subtract the two offsets
 	return {
@@ -69,8 +77,47 @@ function offset (child, parent) {
 // }
 
 /**
+ * Determine the conaining block of an element
+ *
+ * @param {Element} child
+ * @param {Element} [container] will default to offsetParent
+ */
+exports.container = container
+function container (child, container) {
+	// default to comparing with the offsetparent
+	container || (container = offsetParent(child))
+	if (!container) {
+		container = child.ownerDocument.documentElement
+		// The outer edges of the document
+		return {
+			top   : 0,
+			left  : 0,
+			right : container.offsetWidth,
+			bottom: container.offsetHeight,
+			width : container.offsetWidth,
+			height: container.offsetHeight
+		}
+	}
+
+	var offset = position(container)
+	  , css = style(container)
+
+	// Remove its border
+	offset.top    += parseFloat(css.borderTopWidth) || 0
+	offset.left   += parseFloat(css.borderLeftWidth)|| 0
+	offset.right  -= parseFloat(css.borderRightWidth) || 0
+	offset.bottom -= parseFloat(css.borderBottomWidth) || 0
+	offset.width   = offset.right - offset.left
+	offset.height  = offset.bottom - offset.top
+
+	return offset
+}
+
+/**
  * Get the element that serves as the base for this ones positioning.
- * That means either the nearest positioned parent or the documentElement 
+ * That means either the nearest positioned parent. Note if no parents are
+ * postioned this function will return undefined. It therefore breaks from 
+ * the w3c definition of an offsetparent 
  * 
  * @param {Element} element
  * @return {Element} if a positioned parent exists
@@ -79,5 +126,5 @@ exports.offsetParent = offsetParent
 function offsetParent (element) {
 	var parent = element.offsetParent
 	while (parent && style(parent).position === "static") parent = parent.offsetParent
-	return parent || element.ownerDocument.documentElement
+	return parent
 }
