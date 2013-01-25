@@ -1,6 +1,10 @@
 var style = require('computed-style')
 
 exports = module.exports = position
+exports.container = containerBox
+exports.offsetParent = offsetParent
+exports.relative = 
+exports.offset = offset 
 
 /**
  * Get the location of the element relative to the top left of the documentElement
@@ -8,11 +12,12 @@ exports = module.exports = position
  * @param {Element} element
  * @return {Object} {top, right, bottom, left} in pixels
  */
+
 function position (element) {
 	var box = element.getBoundingClientRect()
 	  , scrollTop = window.scrollY
 	  , scrollLeft = window.scrollX
-	// Has to be copied since ClientRects is immutable and thats unusual
+	// Has to be copied since ClientRects is immutable
 	return {
 		top: box.top + scrollTop,
 		right: box.right + scrollLeft,
@@ -30,13 +35,12 @@ function position (element) {
  *   offset(child, parent)
  *   
  * @param {Element} child the subject element
- * @param {Element} [parent] 
- *        offset will be calculated relative to this element. This parameter is 
- *        optional and will be defaulted to the offsetparent of the `child` element
+ * @param {Element} [parent] offset will be calculated relative to this element. 
+ *   This parameter is optional and will default to the offsetparent of the 
+ *   `child` element
  * @return {Object} {x, y} in pixels
  */
-exports.relative = 
-exports.offset = offset 
+
 function offset (child, parent) {
 	// default to comparing with the offsetparent
 	parent || (parent = offsetParent(child))
@@ -60,12 +64,12 @@ function offset (child, parent) {
 	offset.top  -= parent.clientTop
 	offset.left -= parent.clientLeft
 
-	// Subtract the two offsets
 	return {
 		x: offset.left - parentOffset.left,
 		y:  offset.top  - parentOffset.top
 	}
 }
+
 // Alternative way of calculating offset perhaps its cheaper
 // function offset (el) {
 // 	var x = el.offsetLeft, y = el.offsetTop
@@ -77,15 +81,17 @@ function offset (child, parent) {
 // }
 
 /**
- * Determine the conaining block of an element
+ * Determine the perimeter of an elements containing block. This is the box that
+ * determines the childs positioning. The container cords are relative to the 
+ * document element not the viewport; so take into account scrolling.
  *
  * @param {Element} child
- * @param {Element} [container] will default to offsetParent
+ * @return {Object}
  */
-exports.container = container
-function container (child, container) {
-	// default to comparing with the offsetparent
-	container || (container = offsetParent(child))
+
+function containerBox (child) {
+	var container = offsetParent(child)
+
 	if (!container) {
 		container = child.ownerDocument.documentElement
 		// The outer edges of the document
@@ -115,14 +121,14 @@ function container (child, container) {
 
 /**
  * Get the element that serves as the base for this ones positioning.
- * That means either the nearest positioned parent. Note if no parents are
- * postioned this function will return undefined. It therefore breaks from 
- * the w3c definition of an offsetparent 
+ * If no parents are postioned it will return undefined which isn't 
+ * what you might expect if you know the offsetparent spec or have 
+ * used `jQuery.offsetParent`
  * 
  * @param {Element} element
  * @return {Element} if a positioned parent exists
  */
-exports.offsetParent = offsetParent
+
 function offsetParent (element) {
 	var parent = element.offsetParent
 	while (parent && style(parent).position === "static") parent = parent.offsetParent

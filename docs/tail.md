@@ -1,4 +1,12 @@
 
+## Running the tests
+
+Run 
+
+	$ make test/built.js
+
+Then open the test directory in your browser
+
 ## Contributing
 Please do!
 

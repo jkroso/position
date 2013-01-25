@@ -4,14 +4,16 @@
   "description": "DOM element position utilities",
   "main": "src/index.js",
   "dependencies": {
+    "computed-style": "https://github.com/jkroso/computed-style/tarball/master",
+    "css": "https://github.com/jkroso/css/tarball/patch-1"
   },
   "devDependencies": {
-    "bigfile": "*",
     "mocha": "*",
     "chai": "*",
-    "laissez-faire": "*"
+    "sourcegraph": "~0.4.1",
+    "bigfile": "~0.2.2"
   },
-  "scripts" : {
+  "scripts": {
     "test": "make test"
   },
   "repository": {
@@ -21,7 +23,12 @@
   "bugs": {
     "url": "https://github.com/jkroso/position/issues"
   },
-  "keywords": ["DOM","position","css","offset"],
+  "keywords": [
+    "DOM",
+    "position",
+    "css",
+    "offset"
+  ],
   "author": "Jakeb Rosoman",
   "license": "MIT"
 }

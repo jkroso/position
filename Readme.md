@@ -8,15 +8,15 @@ DOM element position utilities
 var position = require('position')
 ```
   - [position()](#position)
-  - [exports.relative](#exportsrelative)
-  - [exports.container](#exportscontainer)
-  - [exports.offsetParent](#exportsoffsetparent)
+  - [offset()](#offset)
+  - [containerBox()](#containerbox)
+  - [offsetParent()](#offsetparent)
 
-## position()
+### position()
 
   Get the location of the element relative to the top left of the documentElement
 
-## exports.relative
+### offset()
 
   Get the position of one element relative to another
   
@@ -25,16 +25,26 @@ offset(child)
 offset(child, parent)
 ```
 
-## exports.container
+### containerBox()
 
-  Determine the conaining block of an element
+  Determine the perimeter of an elements containing block. This is the box that
+  determines the childs positioning. The container cords are relative to the 
+  document element not the viewport; so take into account scrolling.
 
-## exports.offsetParent
+### offsetParent()
 
   Get the element that serves as the base for this ones positioning.
-  That means either the nearest positioned parent. Note if no parents are
-  postioned this function will return undefined. It therefore breaks from 
-  the w3c definition of an offsetparent
+  If no parents are postioned it will return undefined which isn't 
+  what you might expect if you know the offsetparent spec or have 
+  used `jQuery.offsetParent`
+
+## Running the tests
+
+Run 
+
+	$ make test/built.js
+
+Then open the test directory in your browser
 
 ## Contributing
 Please do!

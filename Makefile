@@ -1,21 +1,16 @@
-all: clean build test docs
+all: test/built.js Readme.md
 
-build: test
-	@component build -dv
+test/built.js:
+	@node_modules/.bin/sourcegraph.js test/browser.js \
+		--plugins mocha,nodeish,javascript \
+		 | node_modules/.bin/bigfile \
+		 	--export null \
+		 	--plugins nodeish > test/built.js
 
-install:
-	@npm install
-	@component install --dev
-
-test:
-	@bigfile --entry=test/browser.js --write=test/built.js -lb
-
-clean:
-	@rm -rf build components node_modules
-
-docs:
+Readme.md: src/index.js docs/head.md docs/tail.md
 	@cat docs/head.md > Readme.md
-	@dox --api < src/index.js >> Readme.md
+	@cat src/index.js\
+	 | dox -a | sed s/^\#\#/\#\#\#/ >> Readme.md
 	@cat docs/tail.md >> Readme.md
 
-.PHONY: all build install clean docs test
+.PHONY: all
