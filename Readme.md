@@ -15,6 +15,8 @@ var position = require('position')
 ### position()
 
   Get the location of the element relative to the top left of the documentElement
+  
+  `-> {top, right, bottom, left, width, height}` in pixels
 
 ### offset()
 
@@ -22,7 +24,7 @@ var position = require('position')
   
 ```js
 offset(child)
-offset(child, parent)
+offset(child, parent) -> {x, y}
 ```
 
 ### containerBox()
