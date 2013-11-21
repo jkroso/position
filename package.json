@@ -4,11 +4,11 @@
   "description": "DOM element position utilities",
   "main": "src/index.js",
   "dependencies": {
-    "computed-style": "jkroso/computed-style",
-    "css": "component/css"
+    "computed-style": "jkroso/computed-style"
   },
   "devDependencies": {
     "serve": "jkroso/serve#1.5.1",
+    "css": "component/css",
     "mocha": "*",
     "chai": "*"
   },

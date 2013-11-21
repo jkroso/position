@@ -10,8 +10,7 @@
     "offset"
   ],
   "dependencies": {
-    "jkroso/computed-style": "*",
-    "component/css": "*"
+    "jkroso/computed-style": "*"
   },
   "scripts": ["index.js"],
   "license": "MIT"
