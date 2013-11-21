@@ -6,7 +6,7 @@ DOM element position utilities
 
 _With [component](//github.com/component/component), [packin](//github.com/jkroso/packin) or [npm](//github.com/isaacs/npm)_
 
-  $ {package mananger} install jkroso/position
+    $ {package mananger} install jkroso/position
 
 then in your app:
 
