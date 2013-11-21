@@ -2,15 +2,19 @@
 
 DOM element position utilities
 
-## API
+## Installation
 
-```javascript
+_With [component](//github.com/component/component), [packin](//github.com/jkroso/packin) or [npm](//github.com/isaacs/npm)_
+
+  $ {package mananger} install jkroso/position
+
+then in your app:
+
+```js
 var position = require('position')
 ```
-  - [position()](#position)
-  - [offset()](#offset)
-  - [containerBox()](#containerbox)
-  - [offsetParent()](#offsetparent)
+
+## API
 
 ### position()
 
@@ -24,7 +28,7 @@ var position = require('position')
   
 ```js
 offset(child)
-offset(child, parent) -> {x, y}
+offset(child, parent) // => {x, y}
 ```
 
 ### containerBox()
