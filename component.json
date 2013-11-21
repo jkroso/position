@@ -2,7 +2,7 @@
   "name": "position",
   "repo": "jkroso/position",
   "description": "Utlities for working with positioned DOM elements",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "DOM",
     "position",
@@ -13,10 +13,6 @@
     "jkroso/computed-style": "*",
     "component/css": "*"
   },
-  "main": "src/index.js",
-  "scripts": [
-    "src/index.js"
-  ],
-  "styles": [],
+  "scripts": ["index.js"],
   "license": "MIT"
 }

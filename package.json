@@ -1,28 +1,19 @@
 {
   "name": "position",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DOM element position utilities",
   "main": "src/index.js",
   "dependencies": {
-    "computed-style": "https://github.com/jkroso/computed-style/tarball/master",
-    "css": "https://github.com/jkroso/css/tarball/patch-1"
+    "computed-style": "jkroso/computed-style",
+    "css": "component/css"
   },
   "devDependencies": {
+    "serve": "jkroso/serve#1.5.1",
     "mocha": "*",
-    "chai": "*",
-    "sourcegraph": "~0.4.1",
-    "bigfile": "~0.2.2"
+    "chai": "*"
   },
-  "scripts": {
-    "test": "make test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jkroso/position.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jkroso/position/issues"
-  },
+  "repository": "git://github.com/jkroso/position.git",
+  "bugs": "https://github.com/jkroso/position/issues",
   "keywords": [
     "DOM",
     "position",
