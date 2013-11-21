@@ -1,15 +1,18 @@
+
 var should = require('chai').should()
-  , position = require('../src')
-  , html = document.getElementsByTagName('html')[0]
-  , test = document.querySelector('#test')
-  , child = test.firstElementChild
-  , static = document.querySelector('#static')
-  , css = require('css')
+var position = require('..')
+var css = require('css')
+
+var html = document.getElementsByTagName('html')[0]
+var static = document.querySelector('#static')
+var test = document.querySelector('#test')
+var child = test.firstElementChild
 
 describe('offsetParent', function () {
 	it('should return undefined if no positioned parents are present', function () {
 		should.not.exist(position.offsetParent(static.firstChild))
 	})
+
 	it('should return the nearest positioned element', function () {
 		position.offsetParent(child).should.equal(test)
 		position.offsetParent(child.firstElementChild).should.equal(child)
@@ -27,6 +30,7 @@ describe('position', function () {
 			bottom:150
 		})
 	})
+
 	it('should not be affected by scolling', function () {
 		window.scrollTo(0,100)
 		position(test).should.deep.equal({
@@ -48,6 +52,7 @@ describe('offset(child)', function () {
 			y:50
 		})
 	})
+
 	it('should remove this childs margin', function () {
 		css(child, {margin:10})
 		position.relative(child).should.deep.equal({
@@ -56,6 +61,7 @@ describe('offset(child)', function () {
 		})
 		css(child, {margin:0})
 	})
+
 	it('should remove the offset parents border', function () {
 		css(child, {border:'10px solid'})
 		position.relative(child).should.deep.equal({
@@ -90,6 +96,7 @@ describe('container(child)', function () {
 			bottom:150
 		})
 	})
+
 	it('should allow for border width', function () {
 		css(test,{border:'10px solid'})
 		position.container(child).should.deep.equal({
@@ -102,6 +109,7 @@ describe('container(child)', function () {
 		})
 		css(test,{border:'none'})
 	})
+
 	it('if there isn\'t an offsetParent it should return the size of the document', function () {
 		var width = html.offsetWidth
 		var height = html.offsetHeight

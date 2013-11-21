@@ -1,39 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>position test suite</title>
-		<link rel="stylesheet" href="../node_modules/mocha/mocha.css">
-		<style>
-			html {
-				border: 5px solid #ccc;
-				/*width: 600px;*/
-				height:2000px;
-			}
-			#test {
-				position: absolute;
-				width: 200px;
-				height: 100px;
-				top: 50px;
-				left:50px;
-			}
-			#test>div {
-				position: absolute;
-				top:50px;
-				left:50%;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="mocha"></div>
-		<div id="test">
-			<div>
-				<div></div>
-			</div>
-		</div>
-		<div id="static">
-			<div></div>
+<head>
+	<meta charset="utf-8">
+	<title>position tests</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+	<style>
+		html {
+			border: 5px solid #ccc;
+			height:2000px;
+		}
+		#test {
+			position: absolute;
+			width: 200px;
+			height: 100px;
+			top: 50px;
+			left:50px;
+		}
+		#test>div {
+			position: absolute;
+			top:50px;
+			left:50%;
+		}
+	</style>
+</head>
+<body>
+	<div id="mocha"></div>
+	<div id="test">
+		<div>
 			<div></div>
 		</div>
-		<script src="./built.js"></script>
-	</body>
+	</div>
+	<div id="static">
+		<div></div>
+		<div></div>
+	</div>
+	<script>
+		var mocha = require('mocha')
+
+		mocha.setup({
+			reporter: 'html',
+			timeout: 200,
+			bail: true,
+			ui: 'bdd'
+		})
+
+		require('./position.test')
+
+		mocha.run(function(){
+			scrollTo(0, 0)
+		})
+	</script>
+</body>
 </html>
