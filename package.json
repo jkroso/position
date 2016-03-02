@@ -4,7 +4,7 @@
   "description": "DOM element position utilities",
   "main": "src/index.js",
   "dependencies": {
-    "computed-style": "jkroso/computed-style"
+    "computed-style": "^0.3.0"
   },
   "devDependencies": {
     "serve": "jkroso/serve#1.5.1",
