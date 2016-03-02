@@ -1,4 +1,4 @@
-var style = require('computed-style')
+var computedStyle = require('computed-style')
 
 exports = module.exports = position
 exports.container = containerBox
@@ -54,11 +54,12 @@ function offset (child, parent) {
 
 	var offset = position(child)
 	  , parentOffset = position(parent)
-	  , css = style(child)
+	  , marginTop = computedStyle(child, 'marginTop')
+	  , marginLeft = computedStyle(child, 'marginLeft')
 
 	// Subtract element margins
-	offset.top  -= parseFloat(css.marginTop)  || 0
-	offset.left -= parseFloat(css.marginLeft) || 0
+	offset.top  -= parseFloat(marginTop)  || 0
+	offset.left -= parseFloat(marginLeft) || 0
 
 	// Allow for the offsetparent's border
 	offset.top  -= parent.clientTop
