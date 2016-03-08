@@ -3,12 +3,9 @@
   "version": "0.1.1",
   "description": "DOM element position utilities",
   "main": "src/index.js",
-  "dependencies": {
-    "computed-style": "jkroso/computed-style"
-  },
+  "dependencies": {},
   "devDependencies": {
     "serve": "jkroso/serve#1.5.1",
-    "css": "component/css",
     "mocha": "*",
     "chai": "*"
   },

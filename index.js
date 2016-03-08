@@ -1,5 +1,3 @@
-var style = require('computed-style')
-
 exports = module.exports = position
 exports.container = containerBox
 exports.offsetParent = offsetParent
@@ -14,18 +12,18 @@ exports.offset = offset
  */
 
 function position (element) {
-	var box = element.getBoundingClientRect()
-	  , scrollTop = window.scrollY
-	  , scrollLeft = window.scrollX
-	// Has to be copied since ClientRects is immutable
-	return {
-		top: box.top + scrollTop,
-		right: box.right + scrollLeft,
-		left: box.left + scrollLeft,
-		bottom: box.bottom + scrollTop,
-		width: box.width,
-		height: box.height
-	}
+  var box = element.getBoundingClientRect()
+  var scrollTop = window.scrollY
+  var scrollLeft = window.scrollX
+  // Has to be copied since ClientRects is immutable
+  return {
+    top: box.top + scrollTop,
+    right: box.right + scrollLeft,
+    left: box.left + scrollLeft,
+    bottom: box.bottom + scrollTop,
+    width: box.width,
+    height: box.height
+  }
 }
 
 /**
@@ -42,42 +40,42 @@ function position (element) {
  */
 
 function offset (child, parent) {
-	// default to comparing with the offsetparent
-	parent || (parent = offsetParent(child))
-	if (!parent) {
-		parent = position(child)
-		return {
-			x: parent.left,
-			y: parent.top
-		}
-	}
+  // default to comparing with the offsetparent
+  parent || (parent = offsetParent(child))
+  if (!parent) {
+    parent = position(child)
+    return {
+      x: parent.left,
+      y: parent.top
+    }
+  }
 
-	var offset = position(child)
-	  , parentOffset = position(parent)
-	  , css = style(child)
+  var offset = position(child)
+  var parentOffset = position(parent)
+  var css = getComputedStyle(child)
 
-	// Subtract element margins
-	offset.top  -= parseFloat(css.marginTop)  || 0
-	offset.left -= parseFloat(css.marginLeft) || 0
+  // Subtract element margins
+  offset.top  -= parseFloat(css.marginTop)  || 0
+  offset.left -= parseFloat(css.marginLeft) || 0
 
-	// Allow for the offsetparent's border
-	offset.top  -= parent.clientTop
-	offset.left -= parent.clientLeft
+  // Allow for the offsetparent's border
+  offset.top  -= parent.clientTop
+  offset.left -= parent.clientLeft
 
-	return {
-		x: offset.left - parentOffset.left,
-		y:  offset.top  - parentOffset.top
-	}
+  return {
+    x: offset.left - parentOffset.left,
+    y: offset.top - parentOffset.top
+  }
 }
 
 // Alternative way of calculating offset perhaps its cheaper
 // function offset (el) {
-// 	var x = el.offsetLeft, y = el.offsetTop
-// 	while (el = el.offsetParent) {
-// 		x += el.offsetLeft + el.clientLeft
-// 		y += el.offsetTop + el.clientTop
-// 	}
-// 	return {left: x, top: y}
+//  var x = el.offsetLeft, y = el.offsetTop
+//  while (el = el.offsetParent) {
+//    x += el.offsetLeft + el.clientLeft
+//    y += el.offsetTop + el.clientTop
+//  }
+//  return {left: x, top: y}
 // }
 
 /**
@@ -90,33 +88,33 @@ function offset (child, parent) {
  */
 
 function containerBox (child) {
-	var container = offsetParent(child)
+  var container = offsetParent(child)
 
-	if (!container) {
-		container = child.ownerDocument.documentElement
-		// The outer edges of the document
-		return {
-			top   : 0,
-			left  : 0,
-			right : container.offsetWidth,
-			bottom: container.offsetHeight,
-			width : container.offsetWidth,
-			height: container.offsetHeight
-		}
-	}
+  if (!container) {
+    container = child.ownerDocument.documentElement
+    // The outer edges of the document
+    return {
+      top   : 0,
+      left  : 0,
+      right : container.offsetWidth,
+      bottom: container.offsetHeight,
+      width : container.offsetWidth,
+      height: container.offsetHeight
+    }
+  }
 
-	var offset = position(container)
-	  , css = style(container)
+  var offset = position(container)
+  var css = getComputedStyle(container)
 
-	// Remove its border
-	offset.top    += parseFloat(css.borderTopWidth) || 0
-	offset.left   += parseFloat(css.borderLeftWidth)|| 0
-	offset.right  -= parseFloat(css.borderRightWidth) || 0
-	offset.bottom -= parseFloat(css.borderBottomWidth) || 0
-	offset.width   = offset.right - offset.left
-	offset.height  = offset.bottom - offset.top
+  // Remove its border
+  offset.top    += parseFloat(css.borderTopWidth) || 0
+  offset.left   += parseFloat(css.borderLeftWidth)|| 0
+  offset.right  -= parseFloat(css.borderRightWidth) || 0
+  offset.bottom -= parseFloat(css.borderBottomWidth) || 0
+  offset.width   = offset.right - offset.left
+  offset.height  = offset.bottom - offset.top
 
-	return offset
+  return offset
 }
 
 /**
@@ -130,7 +128,9 @@ function containerBox (child) {
  */
 
 function offsetParent (element) {
-	var parent = element.offsetParent
-	while (parent && style(parent).position === "static") parent = parent.offsetParent
-	return parent
+  var parent = element.offsetParent
+  while (parent && getComputedStyle(parent).position === "static") {
+    parent = parent.offsetParent
+  }
+  return parent
 }
