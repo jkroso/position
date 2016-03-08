@@ -4,9 +4,7 @@ DOM element position utilities
 
 ## Installation
 
-_With [component](//github.com/component/component), [packin](//github.com/jkroso/packin) or [npm](//github.com/isaacs/npm)_
-
-    $ {package mananger} install jkroso/position
+`npm install jkroso/position`
 
 then in your app:
 
@@ -43,7 +41,3 @@ offset(child, parent) // => {x, y}
   If no parents are postioned it will return undefined which isn't 
   what you might expect if you know the offsetparent spec or have 
   used `jQuery.offsetParent`
-
-## Running the tests
-
-  Run `make`
