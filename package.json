@@ -1,8 +1,7 @@
 {
   "name": "position",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "DOM element position utilities",
-  "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
     "serve": "jkroso/serve#1.5.1",
@@ -18,5 +17,6 @@
     "offset"
   ],
   "author": "Jakeb Rosoman",
+  "files": ["index.js"],
   "license": "MIT"
 }
